@@ -4,6 +4,7 @@ import { check } from '@/routes/transaction';
 import { Link, usePage } from '@inertiajs/vue3';
 import { Facebook, Instagram, Mail, Phone, Twitter } from 'lucide-vue-next';
 const page = usePage();
+const appName = page.props.setting?.title || page.props.name || 'GameStore';
 </script>
 
 <template>
@@ -106,8 +107,8 @@ const page = usePage();
                 class="mt-8 border-t border-border/30 pt-8 text-center text-sm text-muted-foreground"
             >
                 <p>
-                    &copy; {{ new Date().getFullYear() }} GameStore. All rights
-                    reserved.
+                    &copy; {{ new Date().getFullYear() }} {{ appName }}. All
+                    rights reserved.
                 </p>
             </div>
         </div>
