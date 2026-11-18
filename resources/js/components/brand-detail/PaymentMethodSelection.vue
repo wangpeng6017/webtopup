@@ -7,6 +7,7 @@ interface ManualBank {
     account_number?: string;
     account_name?: string;
     img?: string;
+    fee?: number;
 }
 
 interface PaymentMethod {
@@ -33,6 +34,26 @@ const emit = defineEmits<{
 const handlePaymentTypeChange = (type: 'manual' | 'automatic') => {
     emit('update:paymentType', type);
     emit('update:selectedPayment', null);
+};
+
+const feeLabel = (method: PaymentMethod) => {
+    const percent = method.percent
+        ? `${(method.percent * 100).toFixed(1).replace(/\.0$/, '')}%`
+        : '';
+
+    if (method.action === 'multiply') {
+        return `${(method.fee * 100).toFixed(1)}%`;
+    }
+
+    if (method.fee > 0 && percent) {
+        return `${formatCurrency(method.fee)} + ${percent}`;
+    }
+
+    if (method.fee > 0) {
+        return formatCurrency(method.fee);
+    }
+
+    return percent || formatCurrency(method.fee);
 };
 </script>
 
@@ -106,7 +127,7 @@ const handlePaymentTypeChange = (type: 'manual' | 'automatic') => {
                     </div>
                 </div>
                 <span class="text-sm font-medium text-emerald-500">
-                    Fee: Rp 0
+                    Fee: {{ formatCurrency(manualBank.fee || 0) }}
                 </span>
             </button>
         </div>
@@ -134,15 +155,7 @@ const handlePaymentTypeChange = (type: 'manual' | 'automatic') => {
                     {{ method.name }}
                 </span>
                 <span class="text-sm text-muted-foreground">
-                    Fee:
-                    {{
-                        method.action === 'multiply'
-                            ? `${(method.fee * 100).toFixed(1)}%`
-                            : formatCurrency(method.fee)
-                    }}
-                    <template v-if="method.percent">
-                        + {{ (method.percent * 100).toFixed(1) }}%</template
-                    >
+                    Fee: {{ feeLabel(method) }}
                 </span>
             </button>
         </div>

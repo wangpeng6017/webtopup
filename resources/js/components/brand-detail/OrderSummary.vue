@@ -218,11 +218,7 @@ watch(
                 </div>
 
                 <div
-                    v-if="
-                        selectedPayment &&
-                        paymentType === 'automatic' &&
-                        selectedProduct
-                    "
+                    v-if="selectedPayment && selectedProduct"
                     class="flex justify-between"
                 >
                     <span class="text-muted-foreground">Fee:</span>

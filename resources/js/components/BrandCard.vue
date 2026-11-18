@@ -4,7 +4,7 @@ import { PPOBBrandDataItem } from '@/types/cms/ppob';
 import { Link } from '@inertiajs/vue3';
 import { ShoppingBag } from 'lucide-vue-next';
 
-const props = defineProps<{
+defineProps<{
     brand: PPOBBrandDataItem;
 }>();
 </script>
@@ -21,7 +21,7 @@ const props = defineProps<{
             "
         >
             <!-- Brand Image -->
-            <div class="relative aspect-[3/4] overflow-hidden bg-muted">
+            <div class="relative aspect-square overflow-hidden bg-muted">
                 <img
                     v-if="brand.image"
                     :src="brand.image"

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Account\Account;
+use App\Models\Order\Order;
 use App\Models\Setting\Setting;
 use App\Services\UsernameService;
 use Illuminate\Database\QueryException;
@@ -84,7 +85,7 @@ it('polls a pending username check without charging another request', function (
 });
 
 it('uses the CMS username provider during checkout as well as the check endpoint', function () {
-    Setting::first()->update(['value' => ['username_provider' => 'apigames']]);
+    Setting::first()->update(['value' => ['username_provider' => 'apigames', 'manual_transfer_fee' => 2500]]);
     Cache::flush();
     $order = makeTestOrder();
     $this->postJson(route('check-game-account'), ['slug' => $order->brand->slug, 'account_id' => '12345', 'server_id' => '2001'])
@@ -94,7 +95,9 @@ it('uses the CMS username provider during checkout as well as the check endpoint
         'type' => 'id+server', 'account_id' => '12345', 'server_id' => '2001', 'product_id' => $order->product->id,
         'name' => 'Budi', 'email' => 'budi@example.com', 'phone' => '08123456789', 'payment_type' => 'manual', 'payment_method' => 'manual',
     ])->assertSessionHasNoErrors()->assertRedirect();
-    expect(Account::count())->toBe(1);
+    expect(Account::count())->toBe(1)
+        ->and(Order::query()->latest('id')->first()?->fee)->toBe(2500)
+        ->and(Order::query()->latest('id')->first()?->total_amount)->toBe(24500);
     Http::assertSentCount(1);
 });
 

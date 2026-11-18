@@ -75,8 +75,8 @@ class StoreTransactionAction
             $data['fee'] = $this->paymentGateway->fee($data['payment_method'], (int) $amountAfterDiscount);
             $data['total_amount'] = $amountAfterDiscount + $data['fee'];
         } else {
-            $data['fee'] = 0;
-            $data['total_amount'] = $amountAfterDiscount;
+            $data['fee'] = max(0, (int) getSetting('manual_transfer_fee'));
+            $data['total_amount'] = $amountAfterDiscount + $data['fee'];
         }
 
         // If product provider is gift then add step to submited data

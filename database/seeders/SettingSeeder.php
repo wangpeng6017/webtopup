@@ -76,9 +76,10 @@ Halo *{customer_name}*, hadiah untuk gift order Anda dengan ID *{order_id}* tela
 Terima kasih telah mempercayakan pembelian hadiah Anda kepada {app_name}!
 Jika Anda memiliki pertanyaan lebih lanjut, silakan hubungi kami di {cs_link}. Kami siap membantu Anda!',
                     'manual_transfer_bank' => 'Bank BCA',
-                    'manual_transfer_bank_logo' => '/public/images/MANDIRI.svg',
+                    'manual_transfer_bank_logo' => '/images/BCA.svg',
                     'manual_transfer_account_name' => 'PT TopupWok Indonesia',
-                    'manual_transfer_account_number' => '1234567890',
+                    'manual_transfer_account_number' => '7821093456',
+                    'manual_transfer_fee' => 2500,
                     'manual_transfer_type' => 'rekening', // rekening/qris
                     'maintenance_status' => 'inactive',
                     'maintenance_title' => 'Sistem Sedang Maintenance',

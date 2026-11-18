@@ -159,6 +159,7 @@ const manualBank = {
     account_number: setting?.manual_transfer_account_number,
     account_name: setting?.manual_transfer_account_name,
     img: setting?.manual_transfer_bank_logo,
+    fee: Number(setting?.manual_transfer_fee || 0),
 };
 
 const paymentMethods = computed(() => props.paymentMethods);
@@ -170,9 +171,8 @@ const totalAmount = computed(() => {
     const basePrice = selectedProductData.value.sell_price;
     const priceAfterDiscount = Math.max(0, basePrice - discountAmount.value);
 
-    // Manual payment has no fee
     if (form.payment_type === 'manual') {
-        return priceAfterDiscount;
+        return priceAfterDiscount + manualBank.fee;
     }
 
     // Automatic payment - calculate fee
