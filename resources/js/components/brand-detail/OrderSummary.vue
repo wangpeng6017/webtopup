@@ -7,7 +7,7 @@ import { PPOBProductDataItem } from '@/types/cms/ppob';
 import axios from 'axios';
 import { BadgeCheck, Loader2, TicketPercent } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
-import ContactCS from './ContactCS.vue';
+// import ContactCS from './ContactCS.vue';
 import ReviewRating from './ReviewRating.vue';
 
 interface ManualBank {
@@ -123,7 +123,7 @@ watch(
     <div class="sticky top-4">
         <ReviewRating :rating="4.99" :totalReviews="10521" />
 
-        <ContactCS />
+        <!-- <ContactCS /> -->
 
         <!-- Voucher Section -->
         <div

@@ -50,7 +50,7 @@ const form = useForm({
     email: user?.email || '',
     name: user?.name || '',
     phone: user?.phone || '',
-    payment_type: 'manual' as 'manual' | 'automatic',
+    payment_type: 'automatic' as 'manual' | 'automatic',
     payment_method: null as string | null,
 });
 
@@ -351,9 +351,7 @@ const handleCheckout = () => {
 
                         <!-- Step 4: Payment Method -->
                         <PaymentMethodSelection
-                            v-model:payment-type="form.payment_type"
                             v-model:selected-payment="form.payment_method"
-                            :manual-bank="manualBank"
                             :payment-methods="paymentMethods"
                         />
 
